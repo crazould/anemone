@@ -1,15 +1,42 @@
+@font-face{
+    font-family: beauty;
+    src: url(beauty_2/BeautyDemo.ttf);
+}
+
+@font-face{
+    font-family: simplicity;
+    src: url(simplicity2/simplicity.ttf);
+}
+
 body{
     margin: 0;
     padding: 0;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: simplicity;
+    background-color: rgb(245, 188, 188);
+
+}
+
+h1{
+    font-family: beauty;
+    font-weight: 900;   
+    color: #f5f5f5;
+    font-size: 48px;
+}
+
+p{
+    color: #f5f5f5;
+    font-size: 2rem;
+    font-weight: 900;
 }
 
 .wrapper{
     margin: auto;
-    background-color:#f37d8f;
     width: 60%;
     padding-left: 5%;
     padding-right: 5%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
 
 .input-group{
@@ -23,11 +50,11 @@ body{
 #taskLbl{
     display: flex;
     align-items: center;
-    font-weight: 800;
-    color: white;
+    font-weight: 900;
+    color: #f5f5f5;
     border-style: none;
     border-radius: 20px; 
-       
+    font-size: 1.5rem;
 }
 
 #taskTxt{
@@ -39,37 +66,87 @@ body{
     border-radius: 20px;
     padding-left: 2%;
     padding-right: 2%;
+    outline: none;
+    font-family: simplicity;
+    font-size: larger;
+    transition: 300ms;
+
 }
+
+#taskTxt:focus,
+#taskBtn:focus,
+#taskTxt:hover,
+#taskBtn:hover,
+#editBtn:hover,
+#deleteBtn:hover
+{
+    box-shadow: 0 0 10px black;
+    cursor: pointer;
+    transition: 300ms;
+}  
 
 #taskBtn{
-    background-color: rgb(245, 188, 188);
-    font-weight: 800;
+    background-color: #f37d8f;
+    font-family: simplicity;
     width: 10vw;
+    font-size:larger;
+    font-weight: 900;
     border-style: none;
     border-radius: 20px;
-    color: white;
+    color: #f5f5f5;
+    outline: none;
+    transition: 300ms;
+
 }
 
-#taskBtn:hover{
-    cursor: pointer;
-  
-}
 
 .task{
-    color: #f37d8f;
-    background-color: white;
-    padding: 5%;
-    font-weight: 700;
+    /* background-color: #f5f5f5; */
+    /* background-color:#f37d8f; */
+    background-color: #f37d8f;
+
+    color: #f5f5f5;
+    font-weight: 900;
+    padding: 3%;
+    padding-left: 3%;
+    padding-right: 3%;
+    font-size: larger;
     border-radius: 20px;
-    margin-bottom: 3%;
-    transition: 1s;
+    margin-bottom: 2%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.task-text{
+    width: 85%;
+}
+
+.task-action{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    width: 15%;
+}
+
+.task-action i{
+    background-color: #f5f5f5;
+    font-size: larger;
+    color: #f37d8f;
+    padding: 10px;
+    border-radius: 5px;
+    margin-left: 5px;
+    margin-right: 3px;
+    transition: 300ms;
 
 }
 
 #tasklist{
-    transition: 1s;
-    background-color:#f37d8f;
+    background-color: rgb(245, 188, 188);
+
     padding: 5%;
+    width: 100%;
 }
 
 
