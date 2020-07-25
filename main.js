@@ -2,100 +2,126 @@ let addBtn = document.getElementById("addBtn")
 let taskTxt = document.getElementById("taskTxt")
 let tasksList = document.getElementById("tasklist")
 
-let addTask = () => {
+let tasks = []
 
-    if (taskTxt.value == "") {
+class task {
+
+    constructor (text, isDone) {
         
-        taskTxt.style.boxShadow = "0px 0px 15px #a31d1d"
-        taskTxt.placeholder = "Type your todo here!"
+        let taskBody = document.createElement("div")
+        let taskText = document.createElement("div")
+        let taskAction = document.createElement("div")
+        let doneIcon = document.createElement("i")
+        let deleteIcon = document.createElement("i")
 
-    }
-    else {
+        taskBody.classList.add("task")
+        taskText.classList.add("task-text")
+        taskAction.classList.add("task-action")
 
-        let myTask = document.createElement("div")
-        let myTaskText = document.createElement("div")
-        let myTaskAction = document.createElement("div")
-        let myDoneIcon = document.createElement("i")
-        let myDeleteIcon = document.createElement("i")
+        doneIcon.classList.add("fa")
+        doneIcon.classList.add("fa-check")
+        doneIcon.classList.add("fa-lg")
+        doneIcon.classList.add("my-btn")
+        doneIcon.classList.add("done-btn")
 
-        myTask.classList.add("task")
-        myTaskText.classList.add("task-text")
-        myTaskAction.classList.add("task-action")
+        deleteIcon.classList.add("fa")
+        deleteIcon.classList.add("fa-trash")
+        deleteIcon.classList.add("fa-lg")
+        deleteIcon.classList.add("my-btn")
+        deleteIcon.classList.add("delete-btn")
 
-        myDoneIcon.classList.add("fa")
-        myDoneIcon.classList.add("fa-check")
-        myDoneIcon.classList.add("fa-lg")
-        myDoneIcon.classList.add("my-btn")
-        myDoneIcon.classList.add("done-btn")
-
-        myDeleteIcon.classList.add("fa")
-        myDeleteIcon.classList.add("fa-trash")
-        myDeleteIcon.classList.add("fa-lg")
-        myDeleteIcon.classList.add("my-btn")
-        myDeleteIcon.classList.add("delete-btn")
-
-        myTaskText.innerText = taskTxt.value
+        taskText.innerText = text
         
-        myDoneIcon.addEventListener('click', (e) => {
-            
-            myTaskText.style.textDecoration = "line-through"
-            // myTask.style.backgroundColor = "#f33e59"
-            // myDoneIcon.style.color = "#20CC82"
-            myTask.style.backgroundColor = "#f33e59"
-
-        })
-        
-        myDeleteIcon.addEventListener('click', (e) => {
-            let position = 0
-            opacity = 1
-            myTask.style.opacity = opacity
-
-            let fadeOut = setInterval(() => {
-
-                if (position == 400) {
-                    tasksList.removeChild(myTask)
-                    clearInterval(fadeOut)
-                } else {
-                    // console.log(fadeInOpacity)
-                    myTask.style.left = position + 'px'
-                    myTask.style.opacity = opacity
-                    position = position + 25
-                    opacity = opacity - 0.1
-                } 
-
-            }, 50)
-
-        })
-
-        myTaskAction.appendChild(myDoneIcon)
-        myTaskAction.appendChild(myDeleteIcon)
-
-        myTask.appendChild(myTaskText);
-        myTask.appendChild(myTaskAction);
-
-        tasksList.prepend(myTask)
-
         let opacity = 0;
-        myTask.style.opacity = opacity;
-
+        taskBody.style.opacity = opacity;
         let fadeIn = setInterval(() => {
             if (opacity == 0.9999999999999999) {
                 clearInterval(fadeIn)
             } else {
-                myTask.style.opacity = opacity
+                taskBody.style.opacity = opacity
                 opacity = opacity + 0.1
             } 
         }, 25)
+        
+        if(isDone) {
+            taskBody.classList.add("task-done")
+            taskText.classList.add("line-through")
+        }
 
-        taskTxt.value = ""
+        doneIcon.addEventListener('click', () => {
+            
+            taskBody.classList.add("task-done")
+            taskText.classList.add("line-through")
+            let element = tasks.find(e => e.text == text && e.isDone == false)
+            element.isDone = true
+            window.localStorage.setItem("tasks", JSON.stringify(tasks))
+
+        })
+        
+        deleteIcon.addEventListener('click', () => {
+            let position = 0
+            opacity = 1
+            taskBody.style.opacity = opacity
+
+            let fadeOut = setInterval(() => {
+
+                if (position == 400) {
+                    tasksList.removeChild(taskBody)
+                    tasks.splice(tasks.indexOf(text), 1)
+
+                    window.localStorage.setItem("tasks", JSON.stringify(tasks))
+                    clearInterval(fadeOut)
+
+                } else {
+                    taskBody.style.left = position + 'px'
+                    taskBody.style.opacity = opacity
+                    position = position + 25
+                    opacity = opacity - 0.1
+                } 
+            }, 50)
+        })
+
+        taskAction.appendChild(doneIcon)
+        taskAction.appendChild(deleteIcon)
+        taskBody.appendChild(taskText)
+        taskBody.appendChild(taskAction)
+        tasksList.prepend(taskBody)
+
     }
 
 }
 
-addBtn.addEventListener("click", () => addTask())
-document.addEventListener("keydown", (e) => {
-    if (e.keyCode == 13) addTask()
-})
 
+let validate = () => {
+    if (taskTxt.value == "") {
+        taskTxt.style.boxShadow = "0px 0px 15px #a31d1d"
+        taskTxt.placeholder = "Type your todo here!"
+    }
+    else {
+        new task(taskTxt.value, false)
+        tasks.push({
+            text: taskTxt.value,
+            isDone: false
+        })
+        window.localStorage.setItem("tasks", JSON.stringify(tasks))
+        taskTxt.value = ""
+    } 
+}
+
+if(window.localStorage.getItem("tasks") == undefined){
+    window.localStorage.setItem("tasks", JSON.stringify(tasks))
+}
+else {
+    tasks = JSON.parse(window.localStorage.getItem("tasks"))
+    tasks.forEach(e => {
+        new task(e.text, e.isDone)
+    })
+}
+
+
+addBtn.addEventListener("click", validate)
+document.addEventListener("keydown", (e) => {
+    if (e.keyCode == 13) validate()
+})
 
 
