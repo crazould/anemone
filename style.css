@@ -13,7 +13,6 @@ body{
     padding: 0;
     font-family: simplicity;
     background-color: rgb(245, 188, 188);
-
 }
 
 h1{
@@ -27,7 +26,10 @@ p{
     color: #f5f5f5;
     font-size: 2rem;
     font-weight: 900;
+    text-align: center;
 }
+
+
 
 .wrapper{
     margin: auto;
@@ -54,7 +56,7 @@ p{
     color: #f5f5f5;
     border-style: none;
     border-radius: 20px; 
-    font-size: 1.5rem;
+    font-size: 1.75rem;
 }
 
 #taskTxt{
@@ -74,18 +76,17 @@ p{
 }
 
 #taskTxt:focus,
-#taskBtn:focus,
+#addBtn:focus,
 #taskTxt:hover,
-#taskBtn:hover,
-#editBtn:hover,
-#deleteBtn:hover
+#addBtn:hover,
+.my-btn:hover
 {
     box-shadow: 0 0 10px black;
     cursor: pointer;
     transition: 300ms;
 }  
 
-#taskBtn{
+#addBtn{
     background-color: #f37d8f;
     font-family: simplicity;
     width: 10vw;
@@ -96,14 +97,15 @@ p{
     color: #f5f5f5;
     outline: none;
     transition: 300ms;
-
 }
 
 
+
 .task{
-    /* background-color: #f5f5f5; */
-    /* background-color:#f37d8f; */
+    /* background-color: #f33e59; */
     background-color: #f37d8f;
+
+    position: relative;
 
     color: #f5f5f5;
     font-weight: 900;
@@ -116,10 +118,19 @@ p{
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: 300ms;
+
+ 
+}
+
+.task:hover{
+    box-shadow: 0 0 5px black;
+    transition: 300ms;
 }
 
 .task-text{
     width: 85%;
+    font-size: 1.75rem;
 }
 
 .task-action{
@@ -139,12 +150,10 @@ p{
     margin-left: 5px;
     margin-right: 3px;
     transition: 300ms;
-
 }
 
 #tasklist{
     background-color: rgb(245, 188, 188);
-
     padding: 5%;
     width: 100%;
 }
