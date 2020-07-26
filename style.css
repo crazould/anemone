@@ -198,9 +198,13 @@ p{
         font-size: 1.0rem !important;
         padding: 6px !important;
     }
+
+    p{
+        font-size: 1.25rem !important;
+    }
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 900px) {
 
     #taskLbl{
         font-size: 1.75rem;
